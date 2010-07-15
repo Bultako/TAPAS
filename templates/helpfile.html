@@ -1,0 +1,23 @@
+{% extends "basepop.html" %}
+{% block title %}IRAM 30m Archives - Help{% endblock %}
+
+{% block content %}
+
+<h2>Batch Mode</h2>
+
+<p>
+An ASCII file with a list of names and/or position pair coordinates. The names will be resolved by one the resolver (NED/Simbad). To force the search with an IRAM name, it should be enclosed by two * (e.g. *M83A*). The positions are in the format Ra Dec(e.g. 12:12:12.12 30:30:30.30). Note that right ascension coordinates must be given in hours but declination in sexagesimal degrees. 
+
+<blockquote>
+<pre>
+02:04:50  15:14:10
+02:38:50  16:36:11
+2c481
+3c231
+Taurus A
+*IRC+10216*
+</pre>
+</blockquote>
+</p>
+
+{% endblock %}

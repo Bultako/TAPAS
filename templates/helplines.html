@@ -1,0 +1,18 @@
+{% extends "basepop.html" %}
+{% block title %}IRAM 30m Archives - Help{% endblock %}
+
+{% block content %}
+
+<h2>Frequency / Velocity / Line Name</h2>
+
+<p>
+<b>Freq. Range GHz</b>: Frequency range in GHz. Note that for some projects the observers may define the redshifted frequency.
+</p>
+<p>
+<b>Vel. Range m/s</b>: Velocity range of the observed sources. Note that for some projects the velocity are set to 0. by the observers and the frequency is computed with the redshift.
+</p>
+<p>
+<b>Line Name</b>: Name of the line observed according to the observing setup. Here is a <a href="http://www.astro.uni-koeln.de/site/vorhersagen/catalog/catdir.html" target="_blank">molecule line database</a> where most of the common line names and frequencies are indicated.
+</p>
+
+{% endblock %}

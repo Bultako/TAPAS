@@ -1,0 +1,200 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+
+			<h2>Scan Info</h2>
+
+
+<table class="full" border="1">
+<tr>
+  <td>
+	  <table class="full" border="0">
+		<tr>
+		  <td>
+		  
+<pre>
+<b>SCAN {{scanrecord.ncsId}}</b>
+</pre>
+<blockquote>
+PROJECT: <a href="/tapas/project/{{scanrecord.project.id}}/">{{scanrecord.project.projectId}}</a>
+</blockquote>
+<blockquote>
+<pre>
+{% if linkfits %}<a href="{{linkfits}}">FITS File</a>{% endif %}
+DATE: <b>{{scanrecord.startTime}}</b>
+SCAN DURATION <b>{{duration|stringformat:".1f"}} min.</b>
+START TIME: <b>{{scanrecord.startTime}} UT</b>
+END TIME: <b>{{scanrecord.endTime}} UT</b>
+LST: <b>{{lst}}</b>
+# SUBSCANS: <b>{{scanrecord.nSubscans}}</b>
+</pre>
+</blockquote>
+<b>SOURCE</b>
+<blockquote>
+<pre>
+NAME: <b>{{sourcerecord.sourcename}}</b>
+VELOCITY: <b>{{sourcerecord.velocity|stringformat:".2f"}} km/s</b>
+RA: <b>{{sourcerecord.ra}}</b> 
+DEC: <b>{{sourcerecord.dec|safe}}</b>
+J2000 
+</pre>
+</blockquote>
+<b>WEATHER</b>
+<blockquote>
+<table class="scaninfo">
+<tr><td></td><td width="150">                </td><td width="60">MIN</td><td>MAX</td></tr>
+<tr><td>       </td><td>OPACITY @225 GHz</td><td><b>{{weatherrecord.mintau|stringformat:".2f"}}</b></td><td><b>{{weatherrecord.maxtau|stringformat:".2f"}}</b></td></tr>
+<tr><td>       </td><td>WIND VELOCITY</td><td><b>{{weatherrecord.minwind|stringformat:".1f"}} m/s</b></td><td><b>{{weatherrecord.maxwind|stringformat:".1f"}} m/s</b></td></tr>
+<tr><td>       </td><td>HUMIDITY</td><td><b>{{weatherrecord.minhumidity|stringformat:"i"}} %</b></td><td><b>{{weatherrecord.maxhumidity|stringformat:"i"}} %</b></td></tr>
+<tr><td>       </td><td>PRESSURE</td><td><b>{{weatherrecord.minpressure|stringformat:".1f"}} mb</b></td><td><b>{{weatherrecord.maxpressure|stringformat:".1f"}} mb</b></td></tr>
+<tr><td>       </td><td>TEMPERATURE</td><td><b>{{weatherrecord.mintemperature|stringformat:".1f"}} &deg;C</b></td><td><b>{{weatherrecord.maxtemperature|stringformat:".1f"}} &deg;C</b></td></tr>
+</table>
+</blockquote>
+<b>ANTENNA</b>
+<blockquote>
+<pre>
+AZIMUTH: <b>{{antennarecord.azimuth|stringformat:".2f"}}&deg;</b>
+ELEVATION: <b>{{antennarecord.elevation|stringformat:".2f"}}&deg;</b>
+
+POINTING CORRECTION X: <b>{{antennarecord.p2|stringformat:".2f"}}"</b>
+POINTING CORRECTION Y: <b>{{antennarecord.p7|stringformat:".2f"}}"</b>
+FOCUS CORRECTION zZ: <b>{{antennarecord.fZ|stringformat:".2f"}} mm</b>
+</pre>
+</blockquote>
+<b>OBSERVATION TYPE</b>
+<blockquote>
+<pre>
+<b>{{scanrecord.observingMode.name}}</b>
+</pre>
+</blockquote>
+<b>SETTINGS</b>
+<blockquote>
+{% if focusrecord %}
+<pre>
+FOCUS LENGTH: <b>{{focusrecord.len}} mm</b>
+</pre>
+{% endif %}
+{% if tiprecord %}
+<pre>
+TIP
+	FROM: <b>{{tipFrom}} airmass</b>
+	TO: <b>{{tipTo}} airmass</b>  
+	BY: <b>{{tipBy}} airmass</b>
+</pre>
+{% endif %}
+{% if pointinglenght %}
+<pre>
+POINTING LENGTH: <b>{{pointinglenght|stringformat:".2f"}}"</b>
+</pre>
+{% endif %}
+{% if calibrationrecord %}
+<pre>
+CALIBRATION
+	AMBIENT: <b>{{calibrationrecord.doAmbient|yesno:"YES,NO"}}</b>
+	COLD: <b>{{calibrationrecord.doCold|yesno:"YES,NO"}}</b>
+	SKY: <b>{{calibrationrecord.doSky|yesno:"YES,NO"}}</b>
+	GRID: <b>{{calibrationrecord.doGrid|yesno:"YES,NO"}}</b>
+</pre>
+{% endif %}
+{% if otfrecord %}
+<pre>
+OTF
+	X START: <b>{{otfrecord.xStart|stringformat:"i"}}"</b>
+	Y START: <b>{{otfrecord.yStart|stringformat:"i"}}"</b>
+	X END:   <b>{{otfrecord.xEnd|stringformat:"i"}}"</b> 
+	Y END:   <b>{{otfrecord.yEnd|stringformat:"i"}}"</b>
+	X STEP:  <b>{{otfrecord.xStep|stringformat:"i"}}"</b>
+	Y STEP:  <b>{{otfrecord.yStep|stringformat:"i"}}"</b>
+	SPEED START:   <b>{{otfrecord.speedStart|stringformat:"i"}} "/s</b>
+	SPEED END:     <b>{{otfrecord.speedEnd|stringformat:"i"}} "/s</b>
+	TIME PER OTF:  <b>{{otfrecord.timePerOtf|stringformat:"i"}} s</b>
+	TIME PER REFERERENCE: <b>{{otfrecord.timePerReference|stringformat:"i"}} s</b>
+</pre>
+{% endif %}
+{% if onoffrecord %}
+<pre>
+ON/OFF
+	X OFFSET:   <b>{{onoffrecord.xOffset|stringformat:"i"}}"</b>
+	Y OFFSET:   <b>{{onoffrecord.yOffset|stringformat:"i"}}"</b>
+	SYMMETRIC:  <b>{{onoffrecord.doSymmetric|yesno:"YES,NO"}}</b>
+	SW WOBBLER: <b>{{onoffrecord.doSwWobbler|yesno:"YES,NO"}}</b>
+</pre>
+{% endif %}
+</blockquote>
+<b>OFFSETS</b>
+<blockquote>
+{% for offset in offsetlist %}
+<pre>
+<b>{{offset.xOffset|stringformat:".2f"}}" {{offset.yOffset|stringformat:".2f"}}" in system {{offset.system}}</b>
+</pre>
+{% endfor %}
+</blockquote>
+<b>RECEIVERS</b>
+{% for rx in receiverslist %}
+<blockquote>
+	<table class="scaninfo">
+	<tr><td width="80">	</td><td width="80">RX</td><td width="120"><b>{{rx.rxname}}</b></td><td width="120">	</td><td width="80">	</td><td width="80">	</td></tr>
+
+	{% if rx.okheterodyne %}
+	<tr><td>	</td><td>FREQUENCY </td><td><b>{{rx.frequency|stringformat:".3f"}} GHz</b></td><td>	</td><td>	</td><td>	</td></tr>
+	<tr><td>	</td><td>LINENAME </td><td><b>{{rx.linename}}</b></td><td>	</td><td>	</td><td>	</td></tr>
+	{% endif %}
+
+	{% for back in rx.backlist %}
+		<tr><td>&nbsp;	</td><td> </td><td>	</td><td>	</td><td>	</td><td>	</td></tr>
+		<tr><td>	</td><td>BACKEND</td><td><b>{{back.name}}</b></td><td>	</td><td>	</td><td>	</td></tr>
+		{% if back.okpointing %}
+		<tr><td>&nbsp;	</td><td> </td><td>	</td><td>	</td><td>	</td><td>	</td></tr>
+		<tr><td>	</td><td>	</td><td>POINTING</td><td>	</td><td></td><td></td></tr>
+		<tr><td>&nbsp;	</td><td> </td><td>	</td><td>Azimuth</td><td>Elevation</td><td>	</td></tr>
+		<tr><td> </td><td>	</td><td>CORRECTION</td><td><b>{{back.correctionAz|stringformat:".2f"}}"</b></td><td><b>{{back.correctionEl|stringformat:".2f"}}"</b></td><td>	</td></tr>
+		<tr><td> </td><td>	</td><td>CORRECTION ERR</td><td><b>{{back.correctionAzErr|stringformat:".2f"}}"</b></td><td><b>{{back.correctionElErr|stringformat:".2f"}}"</b></td><td>	</td></tr>
+		<tr><td> </td><td>	</td><td>WIDTH</td><td><b>{{back.widthAz|stringformat:".2f"}}"</b></td><td><b>{{back.widthEl|stringformat:".2f"}}"</b></td><td>	</td></tr>
+		<tr><td> </td><td>	</td><td>WIDTH ERR</td><td><b>{{back.widthAzErr|stringformat:".2f"}}"</b></td><td><b>{{back.widthElErr|stringformat:".2f"}}"</b></td><td>	</td></tr>
+		{% endif %}
+		{% if back.okfocus %}
+		<tr><td>&nbsp;	</td><td> </td><td>	</td><td>	</td><td>	</td><td>	</td></tr>
+		<tr><td>	</td><td> </td><td>FOCUS</td><td><b>{{back.focus|stringformat:".2f"}}"</b></td><td></td><td></td></tr>
+		<tr><td>	</td><td> </td><td>FOCUS ERROR</td><td><b>{{back.focusErr|stringformat:".2f"}}"</b></td><td></td><td></td></tr>
+		{% endif %}
+	{% endfor %}
+
+	{% if rx.calibration %}
+	<tr><td>&nbsp;	</td><td> </td><td>	</td><td>	</td><td>	</td><td>	</td></tr>
+	<tr><td>	</td><td>CALIBRATION </td><td></td><td></td><td>	</td><td></td></tr>
+	<tr><td>&nbsp;	</td><td> </td><td>	</td><td>	</td><td> </td><td>	</td></tr>
+	<tr><td>	</td><td> </td><td>TREC</td><td><b>{{rx.calibration.trx|stringformat:".2f"}} K</b></td><td></td><td></td></tr>
+	<tr><td>	</td><td> </td><td>TSYS</td><td><b>{{rx.calibration.tsys|stringformat:".2f"}} K</b></td><td></td><td></td></tr>
+	<tr><td>	</td><td> </td><td>TCAL</td><td><b>{{rx.calibration.tcal|stringformat:".2f"}} K</b></td><td></td><td></td></tr>
+	<tr><td>	</td><td> </td><td>TATMS</td><td><b>{{rx.calibration.tatms|stringformat:".2f"}} K</b></td><td></td><td></td></tr>
+	<tr><td>	</td><td> </td><td>PWV</td><td><b>{{rx.calibration.h2omm|stringformat:".3f"}} mm</b></td><td></td><td></td></tr>
+	<tr><td>	</td><td> </td><td>FREQUENCY IMAGE</td><td><b>{{rx.calibration.frequencyImage|stringformat:".3f"}} GHz</b></td><td></td><td></td></tr>
+	{% endif %}
+	{% if rx.switching %}
+	<tr><td>&nbsp;	</td><td> </td><td>	</td><td>	</td><td>	</td><td>	</td></tr>
+	<tr><td>	</td><td>SWITCHING </td><td><b>{{rx.switching.switchingCfg.mode.name}}</b></td><td></td><td>	</td><td></td></tr>
+	{% endif %}
+
+	</table>
+</blockquote>
+{% endfor %}
+<b>SOFTWARE</b>
+<blockquote>
+<pre>{% for soft in scanrecord.softwareVersions.all %}
+{{soft.software}} {{soft.version}}
+{% endfor %}</pre>
+</blockquote>
+		  </td>
+		</tr>
+	  </table>
+  </td>
+</tr>
+</table>
+
+{% if criteriatable %}
+
+	{% include "criteria.html" %}
+
+{% endif %}
+
+{% endblock %}

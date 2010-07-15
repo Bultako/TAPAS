@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<VOTABLE version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ivoa.net/xml/VOTable/VOTable/v1.1">
+ <DESCRIPTION>
+   IRAM 30m Archives
+   TAPAS - Telescope Archives for Public Access System
+ </DESCRIPTION>
+<RESOURCE ID="error_resource">
+<PARAM ID="Error" name="Error" datatype="char" arraysize="*" value="{{errormsg}}"/>
+</RESOURCE>
+</VOTABLE>

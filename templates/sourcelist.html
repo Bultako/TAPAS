@@ -1,0 +1,138 @@
+{% extends "base_site.html" %}
+{% block content %}
+
+{% include "printformat.html" %}
+<h2>Sources List</h2> 
+
+<div id="mainheader">
+			
+			<table><tr>
+			<td>Format</td><td>
+			<form name="printformat">
+				<select name="format" onchange="printSelect();">
+					<option>HTML</option>
+					<option>VOTable</option>
+					<option>CSV</option>
+					<option>Print PDF</option>
+				</select>
+			</form></td>
+			{% ifnotequal nextpage ''%}
+			<td> Return</td><td>
+			<form name="pagination">
+				<select name="rowsnumber" onChange="window.location.href='{{HTMLURL}}/1/'+this.options[this.selectedIndex].value+'/{{order}}/{{desc}}/'">
+					<option value="50" {% ifequal nbitems '50' %}selected{% endifequal %}>50 rows</option>
+					<option value="10" {% ifequal nbitems '10' %}selected{% endifequal %}>10 rows</option>
+					<option value="100" {% ifequal nbitems '100' %}selected{% endifequal %}>100 rows</option>
+					<option value="250" {% ifequal nbitems '250' %}selected{% endifequal %}>250 rows</option>
+					<option value="500" {% ifequal nbitems '500' %}selected{% endifequal %}>500 rows</option>
+					<option value="1000" {% ifequal nbitems '1000' %}selected{% endifequal %}>1000 rows</option>
+					<option value="1500" {% ifequal nbitems '1500' %}selected{% endifequal %}>1500 rows</option>
+					<option value="3000" {% ifequal nbitems '3000' %}selected{% endifequal %}>3000 rows</option>
+				</select>
+			</form></td>
+			{% endifnotequal %}
+			</tr>
+			</table>
+</div>
+{% if prjid %}
+			<pre>
+PROJECT: <a href="/tapas/project/{{prjid}}/">{{projectId}}</a>
+			</pre>
+{% endif %}
+
+<br/>
+<b>Total number of sources: {{totalcount}}</b>
+			<table class="full">
+			<tr>
+				<td align="left">
+				{% if previouspage %}
+				<a href="{{HTMLURL}}/{{previouspage}}/{{nbitems}}/{{order}}/{{desc}}/" title="previous">&lt;&lt;&lt;</a>
+				{% endif %}
+				</td>
+				<td align="right">
+				{% if nextpage %}
+				<a href="{{HTMLURL}}/{{nextpage}}/{{nbitems}}/{{order}}/{{desc}}/" title="next">&gt;&gt;&gt;</a>
+				{% endif %}
+				</td>
+			</tr>
+			</table>
+
+			<table class="full">
+				<thead>
+				{% ifnotequal nextpage ''%}
+					<tr>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/SourceName/{{updesc}}/" title="Order by Source Name">Source</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/velocity/{{updesc}}/" title="Order by velocity (km/s)">Velocity</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/cscans/{{updesc}}/" title="Order by number of scans"># Scans</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/lambda/{{updesc}}/" title="Order by RA">J2000 RA</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/beta/{{updesc}}/" title="Order by Declination">J2000 Dec.</a></th>
+					{% if not prjid %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/projectID/{{updesc}}/" title="Order by Project ID">Project</a></th>
+					{% endif %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/rxname/{{updesc}}/" title="Order by Receiver">Receiver</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/avgtau/{{updesc}}/" title="Order by Opacity@225GHz">Opacity</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/mintime/{{updesc}}/" title="Order by First Scan">First Scan</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/maxtime/{{updesc}}/" title="Order by Last Scan">Last Scan</a></th>
+					</tr>
+				{% else %}
+					<tr>
+					<th><a href="#" title="Source Name">Source</a></th>
+					<th><a href="#" title="Velocity (km/s)">Velocity</a></th>
+					<th><a href="#" title="Number of scans"># Scans</a></th>
+					<th>J2000 RA</th>
+					<th>J2000 Dec.</th>
+					{% if not prjid %}
+					<th>Project</th>
+					{% endif %}
+					<th>Receiver</th>
+					<th><a href="#" title="Opacity@225GHz">Opacity</a></th>
+					<th>First Scan</th>
+					<th>Last Scan</th>
+					</tr>
+				{% endifnotequal %}
+				</thead>
+				<tbody>
+			
+				{% for record in queryset %}
+					<tr class="{% cycle odd,even %}">
+					<td><b>{{record.SourceName}}</b></td>
+					<td>{{record.velocity|stringformat:".2f"}}</td>
+					<td><a href="/tapas/{{record.prjid}}/scanlist/{{record.kind}}/sourcerx/{{record.rxid}}/{{record.sourceid}}/1/50/ncsID/down/" title="Scans">{{record.cscans}}</a></td>
+					<td>{{record.lambda}}</td>
+					<td>{{record.beta}}</td> 
+					{% if not prjid %}
+					<td><a href="/tapas/project/{{record.prjid}}/">{{record.projectID}}</a></td>
+					{% endif %}
+					<td>{{record.rxname}}</td>
+					<td>{{record.avgtau|stringformat:".2f"}}</td>
+					<td>{{record.mintime}}</td>
+					<td>{{record.maxtime}}</td>
+					</tr>
+				{% endfor %} 
+
+
+				</tbody>
+			</table>
+
+			<table class="full">
+			<tr>
+				<td align="left">
+				{% if previouspage %}
+				<a href="{{HTMLURL}}/{{previouspage}}/{{nbitems}}/{{order}}/{{desc}}/" title="previous">&lt;&lt;&lt;</a>
+				{% endif %}
+				</td>
+				<td align="right">
+				{% if nextpage %}
+				<a href="{{HTMLURL}}/{{nextpage}}/{{nbitems}}/{{order}}/{{desc}}/" title="next">&gt;&gt;&gt;</a>
+				{% endif %}
+				</td>
+			</tr>
+			</table>
+
+{% if criteriatable %}
+
+	{% include "criteria.html" %}
+
+{% endif %}
+
+{% endblock %}

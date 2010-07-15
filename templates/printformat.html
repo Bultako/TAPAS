@@ -1,0 +1,22 @@
+<script type="text/javascript">
+function printSelect(thisform){
+
+	formatindex = document.printformat.format.selectedIndex
+
+	if (formatindex==1)
+	{
+		window.open('{{VOTableURL}}', 'Format' ,'width=900,height=700,resizable=yes,scrollbars=yes,menubar=yes,status=yes')
+	}
+
+	if (formatindex==2)
+	{
+		window.open('{{csvURL}}', 'Format' ,'width=900,height=700,resizable=yes,scrollbars=yes,menubar=yes,status=yes') 
+	}
+
+	if (formatindex==3)
+	{
+		window.print()
+	}
+
+}
+</script>

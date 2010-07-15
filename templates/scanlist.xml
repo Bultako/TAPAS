@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<VOTABLE version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ivoa.net/xml/VOTable/VOTable/v1.1">
+<COOSYS ID="J2000" equinox="J2000." epoch="J2000." system="eq_FK5"/>
+ <DESCRIPTION>
+   IRAM 30m Archives
+   TAPAS - Telescope Archives for Public Access System
+ </DESCRIPTION>
+<PARAM name="Telescope" datatype="float" ucd="phys.size;instr.tel" unit="m" value="30"/>
+
+  <RESOURCE name="IRAM30m Scans List"> 
+  <DESCRIPTION>Scans at IRAM30m Telescope</DESCRIPTION>
+	<INFO name="Scans found" value="{{totalcount}}"/>
+	<INFO name="Number of scans in this page" value="{{nbitems}}"/>
+	<INFO name="Page number" value="{{page}}"/>
+	<PARAM name="Project" datatype="char" ucd="obs.proposal" value="{{projectrecord.projectId}}"/>
+{% if sourcerecord %}
+	<PARAM name="Source name" datatype="char" ucd="{{votable.sourcename.UCD}}" value="{{sourcerecord.sourcename}}"/>
+	<PARAM name="Velocity" datatype="char" ucd="{{votable.velocity.UCD}}" unit="km/s" value="{{sourcerecord.velocity|stringformat:".2f"}}"/>
+	<PARAM name="RA" datatype="char" ucd="{{votable.lambdaField.UCD}}" ref="J2000" unit="h:m:s" value="{{sourcerecord.ra}}"/>
+	<PARAM name="Dec" datatype="char" ucd="{{votable.beta.UCD}}" ref="J2000" unit="d:m:s" value="{{sourcerecord.dec}}"/>
+	<PARAM name="Reeciver" datatype="char" ucd="{{votable.rxName.UCD}}" value="{{rxrecord.name}}"/>
+{% endif %}
+
+    <TABLE name="results">
+	  <FIELD name="Count number" ID="col0" ucd="stat.value" datatype="int">
+        <DESCRIPTION>Order of the element in the list</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Scan Id" ID="col1" ucd="{{votable.ncsId.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.ncsId.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Subscans" ID="col2" ucd="obs.sequence;stat.value" width="6" datatype="int">
+        <DESCRIPTION>Number of subscans</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Scan Start Time" ID="col3" ucd="{{votable.startTime.UCD}}" datatype="char" arraysize="20" unit="Y-m-d h:m:s">
+        <DESCRIPTION>{{votable.startTime.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Scan End Time" ID="col4" ucd="{{votable.endTime.UCD}}" datatype="char"  arraysize="20" unit="Y-m-d h:m:s">
+        <DESCRIPTION>{{votable.endTime.description}}</DESCRIPTION>
+      </FIELD>
+	{% if not sourcerecord %}
+	  <FIELD name="Source name" ID="col5" ucd="{{votable.sourcename.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.sourcename.description}}</DESCRIPTION>
+      </FIELD>
+	{% ifnotequal kind 'bol' %}
+	  <FIELD name="Velocity" ID="col6" ucd="{{votable.velocity.UCD}}" datatype="float" width="8" precision="2" unit="km/s">
+        <DESCRIPTION>{{votable.velocity.description}}</DESCRIPTION>
+      </FIELD>
+	{% endifnotequal %}
+	{% endif %}
+	  <FIELD name="Observation Type" ID="col7" ucd="obs.calib" datatype="char">
+        <DESCRIPTION>Observation type for this scan</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Opacity" ID="col8" ucd="{{votable.tau.UCD}}" width="4" precision="2" datatype="float">
+        <DESCRIPTION>{{votable.tau.description}}</DESCRIPTION>
+      </FIELD>
+	{% if not sourcerecord %}
+	  <FIELD name="Receiver" ID="col9" ucd="{{votable.rxName.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.rxName.description}}</DESCRIPTION>
+      </FIELD>
+	{% endif %}
+	{% ifequal kind 'het' %}
+	  <FIELD name="Frequency" ID="col10" ucd="{{votable.frequency.UCD}}" width="7" precision="3"  unit="GHz" datatype="float">
+        <DESCRIPTION>{{votable.frequency.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Line Name" ID="col11" ucd="{{votable.lineName.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.lineName.description}}</DESCRIPTION>
+      </FIELD>
+	{% endifequal %}
+	  <FIELD name="Azimuth" ID="col12" ucd="{{votable.actualAz.UCD}}" width="5" precision="2" unit="deg" datatype="float">
+        <DESCRIPTION>{{votable.actualAz.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Elevation" ID="col13" ucd="{{votable.actualEl.UCD}}" width="5" precision="2" unit="deg" datatype="float">
+        <DESCRIPTION>{{votable.actualEl.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Pointing Correction X" ID="col14" ucd="{{votable.p2.UCD}}" width="5" precision="2" datatype="float" unit="arcsec">
+        <DESCRIPTION>{{votable.p2.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Pointing Correction Y" ID="col15" ucd="{{votable.p7.UCD}}" width="5" precision="2" datatype="float" unit="arcsec">
+        <DESCRIPTION>{{votable.p7.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Focus Correction zZ" ID="col16" ucd="{{votable.focusCorrectionZ.UCD}}" width="4" precision="2" datatype="float" unit="mm">
+        <DESCRIPTION>{{votable.focusCorrectionZ.description}}</DESCRIPTION>
+      </FIELD>
+		{% if not sourcerecord %}
+      <GROUP Name="Source">
+	    <DESCRIPTION>Source Fields</DESCRIPTION>
+        <FIELDRef ref="col5"/>
+		{% ifnotequal kind 'bol' %}
+        <FIELDRef ref="col6"/>
+		{% endifnotequal %}
+      </GROUP>
+		{% endif %}
+
+      <GROUP Name="Scan">
+	    <DESCRIPTION>Scan Fields</DESCRIPTION>
+        <FIELDRef ref="col1"/>
+        <FIELDRef ref="col2"/>
+        <FIELDRef ref="col3"/>
+        <FIELDRef ref="col4"/>
+        <FIELDRef ref="col7"/>
+        <FIELDRef ref="col8"/>
+		{% if not sourcerecord %}
+        <FIELDRef ref="col9"/>
+		{% endif %}
+      </GROUP>
+
+		{% ifequal kind 'het' %}
+      <GROUP Name="Observed">
+	    <DESCRIPTION>Observed Physical Fields</DESCRIPTION>
+        <FIELDRef ref="col10"/>
+        <FIELDRef ref="col11"/>
+      </GROUP>
+		{% endifequal %}
+
+      <GROUP Name="Antenna">
+	    <DESCRIPTION>Antenna Fields</DESCRIPTION>
+        <FIELDRef ref="col12"/>
+        <FIELDRef ref="col13"/>
+        <FIELDRef ref="col14"/>
+        <FIELDRef ref="col15"/>
+        <FIELDRef ref="col16"/>
+      </GROUP>
+
+      <DATA>
+        <TABLEDATA>
+		{% for record in queryset %}
+			<TR>
+				<TD>{{record.number}}</TD>
+				<TD>{{record.ncsID}}</TD>
+				<TD>{{record.nsubscans}}</TD>
+				<TD>{{record.startTime}}</TD>
+				<TD>{{record.endTime}}</TD>
+				{% if not sourcerecord %}
+				<TD>{{record.sourceName}}</TD>
+				{% ifnotequal kind 'bol' %}
+				<TD>{{record.velocity|stringformat:".2f"}}</TD>
+				{% endifnotequal %}
+				{% endif %}
+				<TD>{{record.obstype}}</TD>
+				<TD>{{record.tau|stringformat:".2f"}}</TD>
+				{% if not sourcerecord %}
+				<TD>{{record.rxname}}</TD>
+				{% endif %}
+				{% ifequal kind 'het' %}
+				<TD>{{record.frequency|stringformat:".3f"}}</TD>
+				<TD>{{record.lineName}}</TD>
+				{% endifequal %}
+				<TD>{{record.actualAz|stringformat:".2f"}}</TD>
+				<TD>{{record.actualEl|stringformat:".2f"}}</TD>
+				<TD>{{record.p2|stringformat:".2f"}}</TD>
+				<TD>{{record.p7|stringformat:".2f"}}</TD>
+				<TD>{{record.focusCorrectionZ|stringformat:".2f"}}</TD>
+			</TR>
+		{% endfor %} 
+        </TABLEDATA>
+      </DATA>
+    </TABLE>
+  </RESOURCE>
+</VOTABLE>

@@ -1,0 +1,151 @@
+{% extends "base_site.html" %}
+{% block content %}
+
+{% include "printformat.html" %}
+			<h2>Scans</h2>
+
+<div id="mainheader">
+
+			<table><tr>
+			<td>Format</td><td>
+			<form name="printformat">
+				<select name="format" onchange="printSelect();">
+					<option>HTML</option>
+					<option>VOTable</option>
+					<option>CSV</option>
+					<option>Print PDF</option>
+				</select>
+			</form></td>
+			<td> Return</td><td>
+			<form name="pagination">
+				<select name="rowsnumber" onChange="window.location.href='{{HTMLURL}}/1/'+this.options[this.selectedIndex].value+'/{{order}}/{{desc}}/'">
+					<option value="50" {% ifequal nbitems '50' %}selected{% endifequal %}>50 rows</option>
+					<option value="10" {% ifequal nbitems '10' %}selected{% endifequal %}>10 rows</option>
+					<option value="100" {% ifequal nbitems '100' %}selected{% endifequal %}>100 rows</option>
+					<option value="250" {% ifequal nbitems '250' %}selected{% endifequal %}>250 rows</option>
+					<option value="500" {% ifequal nbitems '500' %}selected{% endifequal %}>500 rows</option>
+					<option value="1000" {% ifequal nbitems '1000' %}selected{% endifequal %}>1000 rows</option>
+					<option value="1500" {% ifequal nbitems '1500' %}selected{% endifequal %}>1500 rows</option>
+					<option value="3000" {% ifequal nbitems '3000' %}selected{% endifequal %}>3000 rows</option>
+				</select>
+			</form></td>
+			</tr>
+			</table>
+</div>
+
+			<pre>
+PROJECT: <a href="/tapas/project/{{projectrecord.id}}/">{{projectrecord.projectId}}</a>
+{% if sourcerecord %}
+SOURCE: <b>{{sourcerecord.sourcename}}</b>
+VEL: <b>{{sourcerecord.velocity|stringformat:".2f"}} km/s</b>
+RA: <b>{{sourcerecord.ra}}</b>
+DEC: <b>{{sourcerecord.dec}}</b>
+J2000 
+
+RX: <b>{{rxrecord.name}}</b>
+{% endif %}
+</pre>
+
+<b>Total number of scans: {{totalcount}}</b>
+
+			<table class="full">
+			<tr>
+				<td align="left">
+				{% if previouspage %}
+				<a href="{{HTMLURL}}/{{previouspage}}/{{nbitems}}/{{order}}/{{desc}}/" title="previous">&lt;&lt;&lt;</a>
+				{% endif %}
+				</td>
+				<td align="right">
+				{% if nextpage %}
+				<a href="{{HTMLURL}}/{{nextpage}}/{{nbitems}}/{{order}}/{{desc}}/" title="next">&gt;&gt;&gt;</a>
+				{% endif %}
+				</td>
+			</tr>
+			</table>
+
+			<table class="full">
+				<thead>
+					<tr>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/ncsID/{{updesc}}/" title="Order by Scan ID">Scan ID</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/nsubscans/{{updesc}}/" title="Order by Number of subscans">#&nbsp;Sub.</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/startTime/{{updesc}}/" title="Order by Start Time">Start</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/endTime/{{updesc}}/" title="Order by End Time">End</a></th>
+					{% if not sourcerecord %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/sourceName/{{updesc}}/" title="Order by Source Name">Source</a></th>
+					{% ifnotequal kind 'bol' %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/velocity/{{updesc}}/" title="Order by Velocity (km/s)">Vel.</a></th>
+					{% endifnotequal %}
+					{% endif %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/obstype/{{updesc}}/" title="Order by Observation Type">Type</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/tau/{{updesc}}/" title="Order by Opacity@225GHz">Opacity</a></th>
+					{% if not sourcerecord %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/rxname/{{updesc}}/" title="Order by Receiver">Receiver</a></th>
+					{% endif %}
+					{% ifequal kind 'het' %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/frequency/{{updesc}}/" title="Order by Frequency (GHz)">Frequency</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/lineName/{{updesc}}/" title="Order by Line Name">Line</a></th>
+					{% endifequal %}
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/actualAz/{{updesc}}/" title="Order by Azimuth (&deg;)">Azimuth</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/actualEl/{{updesc}}/" title="Order by Elevation (&deg;)">Elevation</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/p2/{{updesc}}/" title="Order by Pointing Correction X ('')">pX</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/p7/{{updesc}}/" title="Order by Pointing Correction Y ('')">pY</a></th>
+					<th><a href="{{HTMLURL}}/1/{{nbitems}}/focusCorrectionZ/{{updesc}}/" title="Order by Focus Correction zZ (mm)">fZ</a></th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+				{% for record in queryset %}
+					<tr class="{% cycle odd,even %}">
+					<td><a href="/tapas/scan/{{record.id}}/">{{record.ncsID}}</a></td>
+					<td>{{record.nsubscans}}</td>
+					<td>{{record.startTime}}</td>
+					<td>{{record.endTime}}</td>
+					{% if not sourcerecord %}
+					<td>{{record.sourceName}}</td>
+					{% ifnotequal kind 'bol' %}
+					<td>{{record.velocity|stringformat:".2f"}}</td>
+					{% endifnotequal %}
+					{% endif %}
+					<td>{{record.obstype}}</td>
+					<td>{{record.tau|stringformat:".2f"}}</td>
+					{% if not sourcerecord %}
+					<td>{{record.rxname}}</td>
+					{% endif %}
+					{% ifequal kind 'het' %}
+					<td>{{record.frequency|stringformat:".3f"}}</td>
+					<td>{{record.lineName}}</td>
+					{% endifequal %}
+					<td>{{record.actualAz|stringformat:".2f"}}</td>
+					<td>{{record.actualEl|stringformat:".2f"}}</td>
+ 					<td>{{record.p2|stringformat:".2f"}}</td>
+					<td>{{record.p7|stringformat:".2f"}}</td>
+					<td>{{record.focusCorrectionZ|stringformat:".2f"}}</td>
+					</tr>
+				{% endfor %} 
+				</tbody>
+			</table>
+
+			<table class="full">
+			<tr>
+				<td align="left">
+				{% if previouspage %}
+				<a href="{{HTMLURL}}/{{previouspage}}/{{nbitems}}/{{order}}/{{desc}}/" title="previous">&lt;&lt;&lt;</a>
+				{% endif %}
+				</td>
+				<td align="right">
+				{% if nextpage %}
+				<a href="{{HTMLURL}}/{{nextpage}}/{{nbitems}}/{{order}}/{{desc}}/" title="next">&gt;&gt;&gt;</a>
+				{% endif %}
+				</td>
+			</tr>
+			</table> 
+
+{% if criteriatable %}
+
+	{% include "criteria.html" %}
+
+{% endif %}
+
+
+{% endblock %}

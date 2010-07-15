@@ -1,0 +1,28 @@
+{% extends "base_site.html" %}
+
+
+{% block content %}
+        <div id="dyn_id24" class="subcolumns">
+          <div id="dyn_id25" class="c62l">
+			<h2>Home</h2>
+			<p>Welcome to the home page of the  archive interface of the IRAM-30m telescope in the Sierra Nevada (Granada, Spain). The <b>Telescope Access for Public Archive System (TAPAS)</b> is meant to provide public and private access to the observation  headers (projects, sources, frequency, etc) recorded at the IRAM-30m telescope and to public projects. It is a collaboration between the <a href="http://www.iram.es">Instituto de Radioastronom&iacute;a Millim&eacute;trica (IRAM)</a> and the <a href="http://www.iaa.es">Instituto de Astrof&iacute;sica de Andaluc&iacute;a - CSIC (IAA)</a>. TAPAS is included in the <a href="http://www.ivoa.net">Virtual Observatory</a> and is built to be VO-compliant.</p>
+			<p>
+				<ul>
+					<li><a href="/tapas/sources/">Search</a></li>
+					<li><a href="/tapas/news/">News</a></li>
+					<li><a href="/tapas/policy/">Policy</a></li>
+					<li><a href="/tapas/help/">Help</a></li>
+					<li><a href="/tapas/about/">About</a></li>
+				</ul>
+
+			If you have used TAPAS facilities for your research, please include the following acknowledgment: <br/>
+			<i>"This research used the facilities of the Instituto de Radioastronom&iacute;a Millim&eacute;trica in collaboration with the Instituto de Astrof&iacute;sica de Andaluc&iacute;a - CSIC."</i>
+			</p>
+          </div>
+          <div id="dyn_id26" class="c38r">
+			  <div align="center">
+			   <img src="{{MEDIA_URL}}img/dish.jpg">
+			  </div>
+          </div>
+        </div>
+{% endblock %}

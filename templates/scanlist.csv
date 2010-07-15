@@ -1,0 +1,12 @@
+PROJECT: {{projectrecord.projectId}}
+{% if sourcerecord %}
+SOURCE: {{sourcerecord.sourcename}}
+VEL: {{sourcerecord.velocity|stringformat:".2f"}} km/s
+RA: {{sourcerecord.ra}}
+DEC: {{sourcerecord.dec|safe}}
+J2000 
+
+RX: {{rxrecord.name}}
+{% endif %}
+Scan ID;#Sub.;Start Time;End Time{% if not sourcerecord %};Source Name{% ifnotequal kind 'bol'%};Velocity (km/s){% endifnotequal %}{% endif %};Observation Type;Opacity{% if not sourcerecord %};Receiver{% endif %}{% ifequal kind 'het' %};Frequency (GHz);Line Name{% endifequal %};Azimuth (deg);Elevation (deg);Pointing Correction X (");Pointing Correction Y (");Focus Correction zZ (mm){% for record in queryset %}
+{{record.ncsID}};{{record.nsubscans}};{{record.startTime}};{{record.endTime}}{% if not sourcerecord %};{{record.sourceName}}{% ifnotequal kind 'het' %};{{record.velocity|stringformat:".2f"}}{% endifnotequal %}{% endif %};{{record.obstype}};{{record.tau|stringformat:".2f"}}{% if not sourcerecord %};{{record.rxname}}{% endif %}{% ifequal kind 'het' %};{{record.frequency|stringformat:".3f"}};{{record.lineName}}{% endifequal %};{{record.actualAz|stringformat:".2f"}};{{record.actualEl|stringformat:".2f"}};{{record.p2|stringformat:".2f"}};{{record.p7|stringformat:".2f"}};{{record.focusCorrectionZ|stringformat:".2f"}}{% endfor %} 

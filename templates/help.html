@@ -1,0 +1,31 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+        <div id="dyn_id24" class="subcolumns">
+          <div id="dyn_id25" class="c62l">
+			<h2>Help</h2>
+			
+			<h3>Overview</h3>
+			<p>The TAPAS archive is the official distribution site for observational data/header obtained with the IRAN-30m telescope on the Sierra Nevada in  Granada, Spain , and is a collaboration between the <a href="http://www.iram.es">Instituto de Radioastronom&iacute;a Milim&eacute;trica </a> (IRAM) and the <a href="http://www.iaa.es">Instituto de Astrof&iacute;sica de Andaluc&iacute;a-CSIC</a> (IAA).</p>
+			<h3>Home Page</h3>
+			<p>The Home page is the hub to start the search using the TAPAS interface.</p>
+			<h3>Search</h3>
+			<p>It provides an interface orientated to source searching. The source can be given either by its  name or by its position in the sky. It offers the possibility to filter according the kind of observations. The source name can be given either by its IRAM name or by its NED/SIMBAD name. If this solver is chosen it will use the <a href="http://cdsweb.u-strasbg.fr/cdsws/name_resolver.gml">SESAME</a> which solves the name with <a href="http://simbad.u-strasbg.fr/simbad/">SIMBAD</a> or <a href="http://nedwww.ipac.caltech.edu/">NED </a>.</p>
+			<p>An observer can decide for his observation to setup the redshifted frequency of his object or the rest frequency of the transition together with the object velocity. It produces different setup in the data for the same observation. TAPAS looks for the observer's setup frequency and the velocity. For the line name there is no official nomenclature at the IRAM-30m telescope, the search will return the match of the line name with the observation setup.</p>
+			<p>The weather conditions found in the scan details are related to the opacity provided by the <a href="https://mrt-lx3.iram.es/tau/taumeter.html">taumeter at 225 GHz</a>. Every 3 minutes a new measurement is taken on the sky.</p>
+			<p>The results of a query can be displayed in various formats
+			<ul>
+				<li>VOTable: VO-compliant XML table</li>
+				<li>CSV: plain text for the list</li>
+				<li>PDF: Postscript document format</li>
+
+			</ul>
+			</p>
+          </div>
+          <div id="dyn_id26" class="c38r">
+			<div align="center">
+		   <img src="{{MEDIA_URL}}img/doc.jpg">
+		   </div>
+          </div>
+        </div>
+{% endblock %}

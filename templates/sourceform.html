@@ -1,0 +1,204 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+		<h2>Search</h2>
+				{% if empty %}<ul class="errorlist"><li>{{empty}}</li></ul>{% endif %}
+				{% if other_errors %}<ul class="errorlist"><li>{{other_errors}}</li></ul>{% endif %}
+
+				<form action="/tapas/sources/" method="post" enctype="multipart/form-data" onsubmit="return validate_search(this);">
+				<table class="full">
+					<tr>
+					  <td valign="top">
+					  <table width="275">
+					  <tr><td>
+						{{form.ra.errors}}{{form.dec.errors}}{{form.size.errors}}
+						<span class="labelform"><a href="#" onclick="window.open('/tapas/helpcone/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Source Name / Position <img src="{{MEDIA_URL}}img/help.gif"></a></span>
+						<table class="full" border="1">
+							<tr>
+							  <td>
+								  <table class="full" border="0">
+									<tr>
+									  <td width="80"><label for="id_source_name">Source&nbsp;Name</label></td>
+									  <td>
+									    <table>
+											<tr>
+												<td>{{form.source_name}}</td>
+											</tr>
+											<tr>
+												<td>{{form.resolver}}</td>
+											</tr>
+										</table>
+									  </td>
+									</tr>
+									<tr>
+									  <td colspan="2">
+									  <hr/>
+									  </td>
+									</tr>
+									<tr>
+									  <td><label for="id_ra">J2000 RA</label></td>
+									  <td>
+										{{form.ra}} hh:mm:ss.ss
+									  </td>
+									</tr>
+									<tr>
+									  <td><label for="id_dec">J2000 Dec</label></td>
+									  <td>
+										{{form.dec}} dd:mm:ss.ss
+									  </td>
+									</tr>
+									<tr>
+									  <td><label for="id_size">Size</label></td>
+									  <td>
+										{{form.size}} degrees
+									  </td>
+									</tr>
+								  </table>
+							  </td>
+							</tr>
+						  </table>
+						  </td></tr>
+							<tr><td>
+							{{form.opacity.errors}}
+							  <span class="labelform"><a href="#" onclick="window.open('/tapas/helptau/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Weather requirements <img src="{{MEDIA_URL}}img/help.gif"></a></span>
+								  <table class="full" border="1">
+									<tr><td>
+										  <table class="full" border="0">
+											<tr>
+												<td width="80">
+													<label for="id_opacity">Opacity</label>
+												</td><td>
+												{{form.opacity}} 
+												</td>
+											</tr>
+											</table>
+									</td>
+									</tr>
+								  </table>
+							</td></tr>
+						</table>	
+						</td>
+					  <td valign="top">
+						  <table width="275">
+						  <tr><td>
+							{{form.project_id.errors}}
+							  <span class="labelform"><a href="#" onclick="window.open('/tapas/helprj/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Project <img src="{{MEDIA_URL}}img/help.gif"></a></span>
+								  <table class="full" border="1">
+									<tr>
+									  <td>
+										  <table class="full" border="0">
+											<tr>
+											  <td width="60"><label for="id_project_id">Project&nbsp;ID</label></td>
+											  <td>
+												{{form.project_id}}
+											  </td>
+											</tr>
+										  </table>
+									  </td>
+									</tr>
+								  </table>
+							</td></tr>
+						  <tr><td>
+
+						  {{form.date_from.errors}}{{form.date_to.errors}}
+						  <span class="labelform"><a href="#" onclick="window.open('/tapas/helpdate/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Observation Date <img src="{{MEDIA_URL}}img/help.gif"></a></span>
+							  <table class="full" border="1">
+								<tr>
+								  <td>
+									  <table class="full" border="0">
+										<tr>
+										  <td><label for="id_date_from">From</label> {{form.date_from|safe}} <label for="id_date_to">to</label> {{form.date_to|safe}}
+										  </td></tr><tr>
+										  <td><span style="font-style:italic;font-size:.9em">dd/mm/YYYY</span>
+										  </td>
+										</tr>
+									  </table>
+								  </td>
+								</tr>
+							  </table>
+						  </td></tr>
+						  <tr><td>
+							{{form.batchfile.errors}}
+							  <span class="labelform"><a href="#" onclick="window.open('/tapas/helpfile/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Batch Mode <img src="{{MEDIA_URL}}img/help.gif"></a></span>
+								  <table class="full" border="1">
+									<tr>
+									  <td>
+										  <table class="full" border="0">
+											<tr>
+											  <td><label for="id_batchfile">Send file</label><br/>
+												{{form.batchfile}}
+											  </td>
+											</tr>
+										  </table>
+									  </td>
+									</tr>
+								  </table>
+						  </td></tr>
+						</table>	
+						</td>
+
+					  <td valign="top">
+					  <table width="275">
+					  <tr><td>
+					  {{form.receivers.errors}}
+						<span class="labelform"><label for="id_receivers"><a href="#" onclick="window.open('/tapas/helprx/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Receivers <img src="{{MEDIA_URL}}img/help.gif"></a></label></span>
+						  <table class="full" border="1">
+							<tr>
+							  <td>{{form.receivers}}
+							  </td>
+							 </tr>
+						   </table>
+						</td></tr>
+						<tr><td>{{form.frequency_from.errors}}{{form.frequency_to.errors}}{{form.velocity_from.errors}}{{form.id_velocity_to.errors}}{{form.line_name.errors}}
+							<span class="labelform"><a href="#" onclick="window.open('/tapas/helplines/', 'help' ,'width=800,height=400,resizable=yes,scrollbars=yes,menubar=yes,status=yes')">Frequency / Velocity / Line Name <img src="{{MEDIA_URL}}img/help.gif"></a></span>
+							  <table class="full" border="1">
+								<tr>
+								  <td>
+									  <table class="full" border="0">
+										<tr>
+										  <td width="100"><label for="id_frequency_from">Frequency&nbsp;Range</label></td>
+										  <td>
+											{{form.frequency_from}} 
+											<label for="id_frequency_to">-</label>
+											{{form.frequency_to}} GHz
+										  </td>
+										</tr>
+										<tr>
+										  <td width="100"><label for="id_velocity_from">Velocity&nbsp;Range</label></td>
+										  <td>
+											{{form.velocity_from}}
+											<label for="id_velocity_to">-</label>
+											{{form.velocity_to}} km/s
+										  </td>
+										</tr>
+										<tr>
+										  <td width="100"><label for="id_line_name">Line Name</label></td>
+										  <td>
+											{{form.line_name}}
+										  </td>
+										</tr>
+										<tr>
+										  <td>Line Name Match</td>	
+										  <td>
+											{{form.exact_line}}
+										  </td>
+										</tr>
+									  </table>
+								  </td>
+								</tr>
+							  </table>
+						  </td></tr>
+						  <tr><td align="right">
+							<input type="hidden" name="username" value="{{user.username}}" />
+							<input type="submit" name="axe" value="clear" class="submit" />
+							<input type="submit" name="axe" value="search" class="submit" />
+						  </td></tr>
+
+						</table>	
+						</td>
+					</tr>
+			  </table>
+			</form>
+ {% endblock %}
+ 
+        

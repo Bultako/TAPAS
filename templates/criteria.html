@@ -1,0 +1,61 @@
+<div id="criteriatable">
+<form action="/tapas/sources/" method="post">
+<input type="hidden" name="axe" value="edit" />
+<input type="submit" value="Edit search" class="submit" />
+</form>
+<br />
+
+<table class="full" border="1">
+<tr>
+  <td>
+	  <table class="full" border="0">
+		<tr>
+		  <td>
+{% if criteriatable.source_name %}
+		  <b>Source Name</b> {{criteriatable.source_name}}<br />
+		  <b>Resolver</b> {{criteriatable.resolvername}}<br />
+{% endif %}
+{% if criteriatable.ra %}
+		  <b>J2000 RA</b> {{criteriatable.ra}}<br />
+		  <b>J2000 Dec</b> {{criteriatable.dec}}<br />
+		  <b>Size</b> {{criteriatable.size}}<br />
+{% endif %}
+{% if criteriatable.opacity %}
+		  <b>Opacity</b> {{criteriatable.opacity}}<br />
+{% endif %}
+{% if criteriatable.project_id %}
+		  <b>Project ID</b> {{criteriatable.project_id}}<br />
+{% endif %}
+{% if criteriatable.date_from %}
+		  <b>Observation Date</b> {{criteriatable.date_from|date:"d/m/Y"}} - {{criteriatable.date_to|date:"d/m/Y"}}<br />
+{% endif %}
+{% if criteriatable.batchfile %}
+		  <b>File</b> <a href="{{settings.MEDIA_URL}}/{{criteriatable.batchfile}}" target="_blank">{{criteriatable.batchfile}}</a><br />
+{% endif %}
+{% if criteriatable.receivers.all %}		  
+		  <b>Receivers</b> 
+<ul>
+{% for rx in criteriatable.receivers.all %}
+<li>{{rx.field_label}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% if criteriatable.frequency_from %}
+		  <b>Frequency Range</b>  {{criteriatable.frequency_from}} - {{criteriatable.frequency_to}} GHz<br />
+{% endif %}
+{% if criteriatable.velocity_from %}
+		  <b>Velocity Range</b> {{criteriatable.velocity_from}} - {{criteriatable.velocity_to}} km/s<br />
+{% endif %}
+{% if criteriatable.line_name %}
+		  <b>Line Name</b> {{criteriatable.line_name}}
+		  <b>Match</b> {{criteriatable.matchline}}<br />
+{% endif %}
+
+		  </td>
+		</tr>
+	  </table>
+  </td>
+</tr>
+</table>
+
+</div>

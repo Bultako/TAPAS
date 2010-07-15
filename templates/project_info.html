@@ -1,0 +1,41 @@
+{% extends "base_site.html" %}
+{% block content %}
+			<h2>Project Info</h2>
+
+<table class="full" border="1">
+<tr>
+  <td>
+	  <table class="full" border="0">
+		<tr>
+		  <td>
+		  
+<pre>	
+<b>ID {{projectrecord.projectId}}</b>
+Observation Dates: {{mindate|date:"d/m/Y"}} - {{maxdate|date:"d/m/Y"}}
+
+{% if allscans %}<a href="/tapas/{{projectrecord.id}}/scanlist/all/1/50/ncsID/down/">{% endif %}# All Scans: {{allscans}}{% if allscans %}</a>{% endif %}
+{% if hetscans %}<a href="/tapas/{{projectrecord.id}}/scanlist/het/1/50/ncsID/down/">{% endif %}# Scans with heterodyne receivers: {{hetscans}}{% if hetscans %}</a>{% endif %}
+{% if boloscans %}<a href="/tapas/{{projectrecord.id}}/scanlist/bol/1/50/ncsID/down/">{% endif %}# Scans with bolometer: {{boloscans}}{% if boloscans %}</a>{% endif %}
+{% if obsources %}<a href="/tapas/sourcelistprj/{{projectrecord.id}}/1/50/SourceName/down/">{% endif %}# Observed sources with different receivers: {{obsources}}{% if obsources %}</a> {% endif %}
+
+</pre>
+<h3>Opacity Curve</h3>
+<b>Time evolution of the opacity  at 225 GHz for the project scans</b>
+<br /><br />
+<img src="http://chart.apis.google.com/chart?cht=lc&chd=t:{{querystring}}&chls=2,6,3&chs=600x400&chco=333333&chf=bg,s,EFEFEF&chxt=x,y&chds=0,{{maxtau}}&chxl=0:||Time|1:{{labels}}">
+
+		  </td>
+		</tr>
+	  </table>
+  </td>
+</tr>
+</table>
+
+{% if criteriatable %}
+
+	{% include "criteria.html" %}
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,492 @@
+[
+    {
+        "pk": "1", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "calibrate", 
+            "description": "A CALIBRATION needs to be done for any heterodyne observation in order to get data with a calibrated intensity scale. It is normally done before the target observations. It must always be done after changing receiver and/or backend setups. It should also be done when changing sources and often enough to follow any variation of the athmosphere, about every 15 minutes. In a standard calibration for heterodyne receivers, we observe 3 subscans: on a sky position, an ambient temperature load (a.k.a., \"hot\" load), and a \"cold\" load at about the temperature of liquid nitrogen."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "pointing", 
+            "description": "POINTING observations are done to optimize the positioning of the telescope in Azimuth and Elevation. This is normally done by continuum observations of a cross scan in Azimuth and Elevation on a point source (or at least a small source) near the intended target source."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "focus", 
+            "description": "FOCUS measurements are done to optimize the position of the subreflector (secondary) along the telescope axis by maximizing the intensity of the radiation focussed into the receiver(s). It is best done on a strong point source, e.g., on a planet if or when it's angular diameter is less than the beam width at the frequency to be observed. It is strongly recommended to do a POINTING on the same source before a FOCUS."
+        }
+    }, 
+    {
+        "pk": "4", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "tip", 
+            "description": "TIP (antenna tipping or \"skydip\") observations are done to measure the transmission of the Earth's athmosphere, by taking data at several points with the same Azimuth but different Elevations, spaced by equal steps in \"air mass\"."
+        }
+    }, 
+    {
+        "pk": "5", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "onOff", 
+            "description": "Subscans are taken alternating between a position that's considered to be \"ON-source\" and a reference position that's normally assumed to be\"OFF-source\", i.e., free of emission."
+        }
+    }, 
+    {
+        "pk": "6", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "onTheFlyMap", 
+            "description": "In OTFMAP (on-the-fly) observations, the antenna moves relative to the source while recording its position and taking data a high rate, thus performing \"scans\" in the strict sense of the word. This is a very fast mode for mapping extended regions."
+        }
+    }, 
+    {
+        "pk": "7", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "track", 
+            "description": "The TRACK observing mode simply tracks one position that is fixed relative to the source. It is normally used with Frequency Switching."
+        }
+    }, 
+    {
+        "pk": "8", 
+        "model": "static.stObservingModes", 
+        "fields": {
+            "name": "VLBI", 
+            "description": "VLBI is a special observing mode to track the source position specified with SOURCE during VLBI scans."
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stSoftwareVersions", 
+        "fields": {
+            "date": "2007-02-22 00:00:00", 
+            "version": "1.0.6.3", 
+            "description": "Software for setting\/running the observations at the IRAM-30m", 
+            "software": "PaKo"
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "A100", 
+            "description": "3mm heterodyne receiver tunable between 80 and 115.5 GHz."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "A230", 
+            "description": "1mm heterodyne receiver tunable between 197 and 266 GHz."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "B100", 
+            "description": "3mm heterodyne receiver tunable between 81 and 115.5 GHz."
+        }
+    }, 
+    {
+        "pk": "4", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "B230", 
+            "description": "1mm heterodyne receiver tunable between 197 and 266 GHz."
+        }
+    }, 
+    {
+        "pk": "5", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "C150", 
+            "description": "2mm heterodyne receiver tunable between 130 and 183 GHz."
+        }
+    }, 
+    {
+        "pk": "6", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "C270", 
+            "description": "1mm heterodyne receiver tunable between 241 and 281 GHz."
+        }
+    }, 
+    {
+        "pk": "7", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "D150", 
+            "description": "2mm heterodyne receiver tunable between 130 and 183 GHz."
+        }
+    }, 
+    {
+        "pk": "8", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "D270", 
+            "description": "1mm heterodyne receiver tunable between 241 and 281 GHz."
+        }
+    }, 
+    {
+        "pk": "9", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "MAMBO1", 
+            "description": "37 bolometer array at 1mm from the MPIfR."
+        }
+    }, 
+    {
+        "pk": "10", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "MAMBO2", 
+            "description": "117 bolometer array at 1mm from the MPIfR."
+        }
+    }, 
+    {
+        "pk": "11", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 1", 
+            "description": "Pixel 1 of the HEterodyne Receivers Array (HERA). Vertical component, tunable between 215 and 241 GHz."
+        }
+    }, 
+    {
+        "pk": "12", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 2", 
+            "description": "Pixel 2 of the HEterodyne Receivers Array (HERA). Vertical component, tunable between 215 and 241 GHz."
+        }
+    }, 
+    {
+        "pk": "13", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 3", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "14", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 4", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "15", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 5", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "16", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 6", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "17", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 7", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "18", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 8", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "19", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA1 Pixel 9", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "20", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 1", 
+            "description": "Pixel 1 of the HEterodyne Receivers Array (HERA). Horizontal component, tunable between 215 and 272 GHz."
+        }
+    }, 
+    {
+        "pk": "21", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 2", 
+            "description": "Pixel 2 of the HEterodyne Receivers Array (HERA). Horizontal component, tunable between 215 and 272 GHz."
+        }
+    }, 
+    {
+        "pk": "22", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 3", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "23", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 4", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "24", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 5", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "25", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 6", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "26", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 7", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "27", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 8", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "28", 
+        "model": "static.stRxNames", 
+        "fields": {
+            "name": "HERA2 Pixel 9", 
+            "description": " "
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stSwitchingModes", 
+        "fields": {
+            "name": "totalPower", 
+            "description": "Refers simply to data acquisition without any of the other 3 fast Switching Modes. Normally, when using Total Power one or several positions \"ON\" the source are observed alternating with one or several \"OFF\"-source reference positions, and the signal is calculated as the difference between \"ON\" and \"OFF\"."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stSwitchingModes", 
+        "fields": {
+            "name": "beamSwitching", 
+            "description": "Is done through a rotating chopper wheel in the receiver cabin, which during each rotation (= switching cycle) moves 2 reflecting blades into the beam path in front of the 4th mirror. The offset, rotation period, and blanking times are fixed.Beam Switching is normally only used for POINTING and FOCUS. The source signal is calculated as difference between the direct and offset phases."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stSwitchingModes", 
+        "fields": {
+            "name": "wobblerSwitching", 
+            "description": "During this switching mode, the wobbling secondary mirror is switched between 2 positions, which are offset from the telescope axis by a fixed amount. Wobbler Switching is normally used with ONOFF or, for bolometer continuum mapping, with OTFMAP."
+        }
+    }, 
+    {
+        "pk": "4", 
+        "model": "static.stSwitchingModes", 
+        "fields": {
+            "name": "frequencySwitching", 
+            "description": "Switches between 2 different frequencies, so that there are 2 phases. The (source) signal is calculated as the difference between these 2 phases. Frequency Switching is normally used with TRACK or OTFMAP."
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "Continuum", 
+            "description": "Continuum backend 1 channel per receiver."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "4MHz", 
+            "description": "Physically, there are a total of 9 4MHz filterbanks, each with a fixed resolution of 4MHz and bandwidth of 1024 MHz."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "1MHz", 
+            "description": "The 1MHz filterbank can be used with 1, 2, 3, or 4 parts with 256, 512, 768, or 1024 MHz bandwidth; but the total number of 1MHz channels is limited to 1024."
+        }
+    }, 
+    {
+        "pk": "4", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "100kHz", 
+            "description": "The 100kHz filterbank can be used in one part with 25.3 MHz bandwidth, or in 2 parts each with 12.8 MHz bandwidth."
+        }
+    }, 
+    {
+        "pk": "5", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "WILMA", 
+            "description": "WILMA has a fixed resolution of 2 MHz and bandwidth of 1024 MHz (theoretical), of which about 930 MHz are practically usable. 2 WILMA parts (times 9) can be connected to HERA1 and\/or HERA2."
+        }
+    }, 
+    {
+        "pk": "6", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "VESPA", 
+            "description": "VESPA allows many different resolutions and bandwidths, depending the \"mode\" used. For details see the VESPA user's guide."
+        }
+    }, 
+    {
+        "pk": "7", 
+        "model": "static.stBkNames", 
+        "fields": {
+            "name": "ABBA", 
+            "description": "Backend ABBA (Adc Bolometer BAckend) for the Mambo and Mambo2 photometers data acquisition from the Max-Planck-Institut fur Radioastronomie."
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stTelescopeStates", 
+        "fields": {
+            "name": "Hera", 
+            "description": "Observing with the Hera receiver."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stTelescopeStates", 
+        "fields": {
+            "name": "Bolometer", 
+            "description": "Observing with bolometer."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stTelescopeStates", 
+        "fields": {
+            "name": "Heterodyne", 
+            "description": "Observing with the heterodyne receivers."
+        }
+    }, 
+    {
+        "pk": "4", 
+        "model": "static.stTelescopeStates", 
+        "fields": {
+            "name": "Technical Problem", 
+            "description": "Telescope stopped due to a technical problem."
+        }
+    }, 
+    {
+        "pk": "5", 
+        "model": "static.stTelescopeStates", 
+        "fields": {
+            "name": "Bad weather", 
+            "description": "Telescope stopped due to bad weather."
+        }
+    }, 
+    {
+        "pk": "6", 
+        "model": "static.stTelescopeStates", 
+        "fields": {
+            "name": "Maintenance", 
+            "description": "Maintenance of the IRAM-30m."
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stProjectModes", 
+        "fields": {
+            "name": "BoloMap", 
+            "description": "OTF maps with the bolometer for the project."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stProjectModes", 
+        "fields": {
+            "name": "BoloOnOff", 
+            "description": "On-Off integration on a point source with the bolometer for the project."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stProjectModes", 
+        "fields": {
+            "name": "SIS", 
+            "description": "Integration with heterodyne receivers for the project."
+        }
+    }, 
+    {
+        "pk": "4", 
+        "model": "static.stProjectModes", 
+        "fields": {
+            "name": "HERA", 
+            "description": "Integration with the HERA receiver for the project."
+        }
+    }, 
+    {
+        "pk": "1", 
+        "model": "static.stSystemNames", 
+        "fields": {
+            "name": "projection", 
+            "description": "The standard simple \"radio\" projection offsets in the chosen coordinate system. This is normally the astronomical system of offsets in which point-by-point (TRACK, ONOFF) or on-the-fly (OTFMAP) maps are made."
+        }
+    }, 
+    {
+        "pk": "2", 
+        "model": "static.stSystemNames", 
+        "fields": {
+            "name": "horizontalTrue", 
+            "description": "The horizontal system with a factor 1\/cos(elevation) applied to the azimuth offset. This is the system in which OTF maps with Wobbler switching and the bolometer are normally done."
+        }
+    }, 
+    {
+        "pk": "3", 
+        "model": "static.stSystemNames", 
+        "fields": {
+            "name": "nasmyth", 
+            "description": "System with the special offsets in the Nasmyth reference to point an off-center pixel of a focal-plane array receiver (bolometer, HERA) to the commanded astronomical position, e.g., to use an off-center pixel for pointing, focus, ONOFF."
+        }
+    }
+]

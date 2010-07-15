@@ -1,0 +1,28 @@
+{% extends "base_site.html" %}
+
+
+{% block content %}
+        <div id="dyn_id24" class="subcolumns">
+			<h2>About</h2>
+
+			<h3>Technical information</h3>
+			<p>TAPAS is built on  the web framework <a href="http://www.djangoproject.com/">Django</a>. TAPAS uses currently the version 1.0 of Django. TAPAS is built on top of a <a href="http://www.mysql.com">MySQL database</a>. The <a href="{{MEDIA_URL}}img/DM.jpg">data model</a> implemented with Django contains more than 200 attributes with about 50 relationships. 
+			</p>
+			<h3>People Contribution</h3>
+			<p>
+			Here is the list of the people involved in TAPAS.
+			<ul>
+			<li>Lourdes Verdes-Montenegro (IAA-CSIC): PI of the project</li>
+			<li>Rainer Mauersberger (IRAM): co-PI of the project</li>
+			<li>St&eacute;phane Leon (IRAM): Lead scientist</li>
+			</ul>
+			<ul>
+			<li>Victor Espigares (IAA-CSIC): Data model and datafiller</li>
+			<li>Jos&eacute; Enrique Ruiz (IAA-CSIC): Web interface and VO services</li>
+			<li>Juan de Dios Santander Vela (IAA-CSIC): Data model</li>
+			<li>Helmut Wiesemeyer (IRAM): XML calibration files</li>
+			<li>Walter Brunswig (IRAM): System integration in the New Control System </li>
+			</ul>
+			</p>
+        </div>
+{% endblock %}

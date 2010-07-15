@@ -1,0 +1,6 @@
+{% if prjid %}
+PROJECT: {{projectId}}
+{% endif %}
+Source Name;Velocity (km/s);# Scans;J2000 RA;J2000 Dec.{% if not prjid %};Project{% endif %};Receiver;Opacity;First Scan;Last Scan
+{% for record in queryset %}{{record.SourceName}};{{record.velocity|stringformat:".2f"}};{{record.cscans}};{{record.lambda}};{{record.beta|safe}}{% if not prjid %};{{record.projectID}}{% endif %};{{record.rxname}};{{record.avgtau|stringformat:".2f"}};{{record.mintime}};{{record.maxtime}}
+{% endfor %} 

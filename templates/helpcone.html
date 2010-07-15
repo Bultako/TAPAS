@@ -1,0 +1,16 @@
+{% extends "basepop.html" %}
+{% block title %}IRAM 30m Archives - Help{% endblock %}
+
+{% block content %}
+<h2>Source Name / Position</h2>
+
+<p>
+<b>Source Name</b>: The object name. Note that object names are defined by the observers. When searching on this field you can either search on the "IRAM Object Name" or use the SIMBAD/NED name resolver.</p>
+<p>
+<b>RA, Dec (J2000)</b>: The right ascension an declination of the target. If a specific coordinate is entered then the Size Box entry must be completed to specify the search range. For TAPAS queries use hh:mm:ss.ss format: e.g. 12:34:56.7. Note that right ascension coordinates must be given in hours but declination in sexagesimal degrees.
+</p>
+<b>Size</b>: A search for observations near a specified RA and Dec requires a size for the Size box in degrees.
+</p>
+
+
+{% endblock %}

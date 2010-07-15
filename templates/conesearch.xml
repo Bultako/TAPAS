@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<VOTABLE version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ivoa.net/xml/VOTable/VOTable/v1.1">
+<COOSYS ID="J2000" equinox="J2000." epoch="J2000." system="eq_FK5"/>
+ <DESCRIPTION>
+   IRAM 30m Archives
+   TAPAS - Telescope Archives for Public Access System
+ </DESCRIPTION>
+<PARAM name="Telescope" datatype="float" ucd="phys.size;instr.tel" unit="m" value="30"/>
+
+  <RESOURCE name="IRAM30m ConeSearch List">
+  <DESCRIPTION>Sources observed at IRAM30m Telescope</DESCRIPTION>
+	<INFO name="Objects found" value="{{totalcount}}"/>
+
+    <TABLE name="Results">
+	  <FIELD name="ID Source" ID="col1" datatype="char" ucd="ID_MAIN" arraysize="*"/>
+	  <FIELD name="Source name" ID="col2" ucd="{{votable.sourcename.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.sourcename.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="RA J2000" ID="col3" unit="deg" datatype="double" precision="2" width="7" ref="J2000" ucd="POS_EQ_RA_MAIN">
+        <DESCRIPTION>Right Ascension J2000</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="DEC J2000" ID="col4" unit="deg" datatype="double" precision="2" width="7" ref="J2000" ucd="POS_EQ_DEC_MAIN">
+        <DESCRIPTION>Right Ascension J2000</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Velocity" ID="col5" ucd="{{votable.velocity.UCD}}" datatype="float" width="8" precision="2" unit="km/s">
+        <DESCRIPTION>{{votable.velocity.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Number of scans" ID="col6" ucd="obs.sequence;stat.value" width="6" datatype="int">
+        <DESCRIPTION>Number of scans</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Mean Opacity" ID="col7" ucd="{{votable.tau.UCD}}" width="3" precision="2" datatype="float">
+        <DESCRIPTION>{{votable.tau.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="First Scan Time" ID="col8" ucd="{{votable.startTime.UCD}}" datatype="char" arraysize="20" unit="&quot;Y-m-d h:m:s&quot;">
+        <DESCRIPTION>{{votable.startTime.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Last Scan Time" ID="col9" ucd="{{votable.endTime.UCD}}" datatype="char"  arraysize="20" unit="&quot;Y-m-d h:m:s&quot;">
+        <DESCRIPTION>{{votable.endTime.description}}</DESCRIPTION>
+      </FIELD>
+
+      <GROUP Name="Source">
+	    <DESCRIPTION>Source Fields</DESCRIPTION>
+        <FIELDRef ref="col2"/>
+        <FIELDRef ref="col3"/>
+        <FIELDRef ref="col4"/>
+        <FIELDRef ref="col5"/>
+      </GROUP>
+
+      <GROUP Name="Time">
+	    <DESCRIPTION>Time Fields</DESCRIPTION>
+        <FIELDRef ref="col8"/>
+        <FIELDRef ref="col9"/>
+      </GROUP>
+
+      <GROUP Name="Statistics">
+	    <DESCRIPTION>Statistical Fields</DESCRIPTION>
+        <FIELDRef ref="col6"/>
+        <FIELDRef ref="col7"/>
+      </GROUP>
+
+
+      <DATA>
+        <TABLEDATA>
+		{% for record in queryset %}
+			<TR>
+			<TD>{{record.sourceid}}</TD>
+			<TD>{{record.SourceName}}</TD>
+			<TD>{{record.ra|stringformat:".2f"}}</TD>
+			<TD>{{record.dec|stringformat:".2f"}}</TD> 
+			<TD>{{record.velocity|stringformat:".2f"}}</TD>
+			<TD>{{record.cscans}}</TD>
+			<TD>{{record.avgtau|stringformat:".2f"}}</TD>
+			<TD>{{record.mintime}}</TD>
+			<TD>{{record.maxtime}}</TD>
+			</TR>
+		{% endfor %} 
+        </TABLEDATA>
+      </DATA>
+    </TABLE>
+  </RESOURCE>
+</VOTABLE>

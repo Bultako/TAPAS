@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}IRAM 30m Archives{% endblock %}
+
+{% block identified %}
+	{% if user.is_authenticated %}	
+			<table border="0" cellspacing="0" cellpadding="0" align="right">
+				<tr>
+					<td><span style="font-weight:bold;">Welcome {{user.first_name}}</span></td>
+				</tr>
+				<tr>
+					<td><span style="font-style:italic;">Last logged: {{user.last_login|date:"D, j M Y"}}</span></td>
+				</tr>
+				<tr>
+				<td>
+				<a href="/tapas/logout/">Logout</a></td>
+				</tr>
+			</table>
+	{% else %}
+		  <form method="post" action="/tapas/login/">
+			<table border="0" cellspacing="0" cellpadding="0" align="right">
+				<tr>
+					<td>Login</td><td><input id="username" name="username" type="text" size="16"/></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input id="password" name="password" type="password" size="16"/></td>
+				</tr>
+				<tr>
+				<td colspan="2"><input type="submit" value="ok" class="submit"></td>
+				</tr>
+			</table>
+		  </form>
+	{% endif %}
+{% endblock %}
+
+
+{% block nav %}
+          <ul>
+            <li {% ifequal request.path "/tapas/" %} id="current" {% endifequal %}>
+              <a href="/tapas/">
+                Home
+              </a>
+            </li>
+            <li {% ifequal request.path "/tapas/sources/" %} id="current" {% endifequal %}>
+              <a href="/tapas/sources/">
+                Search
+              </a>
+            </li>
+            <li>
+              <a href="/tapas/sourcelist/1/50/sourceName/down/">
+                Results
+              </a>
+            </li>
+            <li {% ifequal request.path "/tapas/news/" %} id="current" {% endifequal %}>
+              <a href="/tapas/news/">
+                News
+              </a>
+            </li>
+            <li {% ifequal request.path "/tapas/policy/" %} id="current" {% endifequal %}>
+              <a href="/tapas/policy/">
+                Policy
+              </a>
+            </li>
+            <li {% ifequal request.path "/tapas/help/" %} id="current" {% endifequal %}>
+              <a href="/tapas/help/">
+                Help
+              </a>
+            </li>
+			<li {% ifequal request.path "/tapas/about/" %} id="current" {% endifequal %}>
+				<a href="/tapas/about/">
+					About
+				</a>
+			</li>
+			{% if user.is_authenticated %}	
+			<li>
+              <a href="#" onclick="window.open('/tapas/admin/');">
+                 Admin 
+              </a>
+            </li>
+			{% endif %}
+          </ul>
+{% endblock %}

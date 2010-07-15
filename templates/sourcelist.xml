@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<VOTABLE version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ivoa.net/xml/VOTable/VOTable/v1.1">
+<COOSYS ID="J2000" equinox="J2000." epoch="J2000." system="eq_FK5"/>
+ <DESCRIPTION>
+   IRAM 30m Archives
+   TAPAS - Telescope Archives for Public Access System
+ </DESCRIPTION>
+<PARAM name="Telescope" datatype="float" ucd="phys.size;instr.tel" unit="m" value="30"/>
+
+  <RESOURCE name="IRAM30m SourceReceiverProject List">
+  <DESCRIPTION>Sources observed at IRAM30m Telescope with different receivers</DESCRIPTION>
+	<INFO name="Objects found" value="{{totalcount}}"/>
+	<INFO name="Number of objects in this page" value="{{nbitems}}"/>
+	<INFO name="Page number" value="{{page}}"/>
+{% if prjid %}
+	<PARAM name="Project" datatype="char" ucd="obs.proposal" value="{{projectId}}"/>
+{% endif %}
+
+    <TABLE name="results">
+	  <FIELD name="Count number" ID="col0" ucd="stat.value" datatype="int">
+        <DESCRIPTION>Order of the element in the list</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Source name" ID="col1" ucd="{{votable.sourcename.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.sourcename.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Velocity" ID="col2" ucd="{{votable.velocity.UCD}}" datatype="float" width="8" precision="2" unit="km/s">
+        <DESCRIPTION>{{votable.velocity.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Number of scans" ID="col3" ucd="obs.sequence;stat.value" width="6" datatype="int">
+        <DESCRIPTION>Number of scans</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="RA" ID="col4" ucd="{{votable.lambdaField.UCD}}" ref="J2000" datatype="char" arraysize="11" unit="h:m:s">
+        <DESCRIPTION>{{votable.lambdaField.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Dec" ID="col5" ucd="{{votable.beta.UCD}}" ref="J2000" datatype="char" arraysize="12" unit="d:m:s">
+        <DESCRIPTION>{{votable.beta.description}}</DESCRIPTION>
+      </FIELD>
+	  {% if not prjid %}
+	  <FIELD name="Project" ID="col6" ucd="obs.proposal" datatype="char">
+        <DESCRIPTION>Project Id</DESCRIPTION>
+      </FIELD>
+	  {% endif %}
+	  <FIELD name="Receiver" ID="col7" ucd="{{votable.rxName.UCD}}" datatype="char">
+        <DESCRIPTION>{{votable.rxName.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Opacity" ID="col8" ucd="{{votable.tau.UCD}}" width="3" precision="2" datatype="float">
+        <DESCRIPTION>{{votable.tau.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="First Scan Time" ID="col9" ucd="{{votable.startTime.UCD}}" datatype="char" arraysize="20" unit="Y-m-d h:m:s">
+        <DESCRIPTION>{{votable.startTime.description}}</DESCRIPTION>
+      </FIELD>
+	  <FIELD name="Last Scan Time" ID="col9" ucd="{{votable.endTime.UCD}}" datatype="char"  arraysize="20" unit="Y-m-d h:m:s">
+        <DESCRIPTION>{{votable.endTime.description}}</DESCRIPTION>
+      </FIELD>
+
+      <GROUP Name="Source">
+	    <DESCRIPTION>Source Fields</DESCRIPTION>
+        <FIELDRef ref="col1"/>
+        <FIELDRef ref="col2"/>
+        <FIELDRef ref="col4"/>
+        <FIELDRef ref="col5"/>
+      </GROUP>
+
+      <GROUP Name="Scan">
+	    <DESCRIPTION>Scan Fields</DESCRIPTION>
+        <FIELDRef ref="col3"/>
+		{% if not prjid %}
+        <FIELDRef ref="col6"/>
+		{% endif %}
+        <FIELDRef ref="col7"/>
+        <FIELDRef ref="col8"/>
+        <FIELDRef ref="col9"/>
+        <FIELDRef ref="col10"/>
+      </GROUP>
+
+      <DATA>
+        <TABLEDATA>
+		{% for record in queryset %}
+			<TR>
+			<TD>{{record.number}}</TD>
+			<TD>{{record.SourceName}}</TD>
+			<TD>{{record.velocity|stringformat:".2f"}}</TD>
+			<TD>{{record.cscans}}</TD>
+			<TD>{{record.lambda}}</TD>
+			<TD>{{record.beta}}</TD> 
+			{% if not prjid %}
+			<TD>{{record.projectID}}</TD>
+			{% endif %}
+			<TD>{{record.rxname}}</TD>
+			<TD>{{record.avgtau|stringformat:".2f"}}</TD>
+			<TD>{{record.mintime}}</TD>
+			<TD>{{record.maxtime}}</TD>
+			</TR>
+		{% endfor %} 
+        </TABLEDATA>
+      </DATA>
+    </TABLE>
+  </RESOURCE>
+</VOTABLE>
