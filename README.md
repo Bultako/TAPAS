@@ -6,7 +6,7 @@ TAPAS is built on the web framework Django on top of a MySQL database. The data 
 
 https://tapas.iram.es/tapas/
 
-.. code-block:: tex
+
 
     @article{tapas,
         Author = {Leon, S., Espigares, V., Ruíz, J.E. et al.},
