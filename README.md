@@ -6,4 +6,15 @@ TAPAS is built on the web framework Django on top of a MySQL database. The data 
 
 https://tapas.iram.es/tapas/
 
-.
+.. code-block:: tex
+
+    @article{tapas,
+        Author = {Leon, S., Espigares, V., Ruíz, J.E. et al.},
+        Doi = {10.1007/s10686-012-9299-9},
+        Title = {TAPAS, a VO archive at the IRAM 30-m telescope},
+        Journal = {Experimental Astronomy},
+        Year = 2012,
+        Volume = 34,
+        Page = 65,
+        Url = {https://link.springer.com/article/10.1007%2Fs10686-012-9299-9}
+    }
